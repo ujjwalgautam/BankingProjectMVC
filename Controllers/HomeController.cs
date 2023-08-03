@@ -299,7 +299,7 @@ namespace BankingProjectMVC.Controllers
         [HttpPost]
         public IActionResult CheckDeposit(Depositt data)
         {
-            Context myContext = new Context();
+            Context myContext = new  Context();
             var acountNum = data.AccountNo;
             var AccountName = data.Name;
             var accounts = myContext.AccountDetails.Where(c => c.AccountNo == acountNum ).FirstOrDefault();
