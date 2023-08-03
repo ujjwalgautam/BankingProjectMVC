@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Get Customer Account Number";
+}
+
+<h2>Get Customer Account Number</h2>
+
+<form asp-controller="Home" asp-action="CheckStatement" method="post">
+    <div class="form-group">
+        <label for="accountNumber">Account Number:</label>
+        <input type="text" id="accountNumber" name="accountNumber" class="form-control" required />
+    </div>
+                    <span class="text-danger">@Html.ValidationMessage("InsufficientAmount")</span>
+
+    <button type="submit" class="btn btn-secondary mt-3 text-center">Check</button>
+</form>

@@ -1,0 +1,143 @@
+﻿@model AccountDetails
+@{
+    ViewData["Title"] = "Edit";
+    
+}
+<h4>AccountDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" method="post" asp-controller="Home">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccountNo" class="control-label" ></label>
+                <input asp-for="AccountNo" class="form-control" value="@Model.AccountNo" readonly/>
+                <span asp-validation-for="AccountNo" class="text-danger" ></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DOB" class="control-label"></label>
+                <input asp-for="DOB" class="form-control" />
+                <span asp-validation-for="DOB" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control"value="@Model.PhoneNumber" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control"value="@Model.Address" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="District" class="control-label" ></label>
+                <input asp-for="District" class="form-control"value="@Model.District" />
+                <span asp-validation-for="District" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <select asp-for="State" class="form-control" onselect="@Model.State">
+                    <option value="">Select State</option>
+                    <option value="1">State 1</option>
+                    <option value="2">State 2</option>
+                    <option value="3">State 3</option>
+                    <option value="4">State 4</option>
+                    <option value="5">State 5</option>
+                    <option value="6">State 6</option>
+                    <option value="7">State 7</option>
+                </select>
+                <span asp-validation-for="State" class="text-danger"></span>
+            </div>
+
+            @*<div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <input asp-for="Picture"  type="file" onchange="displayImagePreview()" accept="image/*" />                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <img id="imagePreview" src="#" alt="Selected Image" style="max-width: 100%; max-height: 200px; display: none;" />
+            </div>*@
+
+
+
+
+            <div class="form-group">
+                <label class="control-label">Gender:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Male" checked="@(Model.Gender == "Male")" />
+                    <label class="form-check-label">Male</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Female" checked="@(Model.Gender == "Female")"  />
+                    <label class="form-check-label">Female</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="Gender" value="Others" checked="@(Model.Gender == "Others")"  />
+                    <label class="form-check-label">Others</label>
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Marital Status:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="MaritalStatus" value="Married"  checked="@(Model.MaritalStatus == "Married")"/>
+                    <label class="form-check-label">Married</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" asp-for="MaritalStatus" value="Unmarried" checked="@(Model.MaritalStatus == "Unmarried")" />
+                    <label class="form-check-label">Unmarried</label>
+                </div>
+                <span asp-validation-for="MaritalStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MotherName" class="control-label"></label>
+                <input asp-for="MotherName" class="form-control" />
+                <span asp-validation-for="MotherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FatherName" class="control-label"></label>
+                <input asp-for="FatherName" class="form-control" />
+                <span asp-validation-for="FatherName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Balance" class="control-label"></label>
+                <input asp-for="Balance" class="form-control" />
+                <span asp-validation-for="Balance" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mt-3 text-center">
+                <input type="submit" value="Update" class="btn btn-secondary mt-3 text-center" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function displayImagePreview() {
+            var fileInput = document.getElementById('Picture');
+            var imagePreview = document.getElementById('imagePreview');
+
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                imagePreview.src = '#';
+                imagePreview.style.display = 'none';
+            }
+        }
+    </script>
+}

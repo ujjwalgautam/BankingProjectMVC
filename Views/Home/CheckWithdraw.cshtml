@@ -1,0 +1,29 @@
+﻿@model BankingProjectMVC.Models.Debit
+
+<h4>Withdraw</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CheckWithdraw">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Sno" />
+            
+            <div class="form-group">
+                <label asp-for="AccountNo" class="control-label"></label>
+                <input asp-for="AccountNo" class="form-control" />
+                <span asp-validation-for="AccountNo" class="text-danger"></span>
+            </div>
+            
+            <span class="text-danger">@Html.ValidationMessage("InvalidAccountDetails")</span>
+            <div class="form-group">
+                <input type="submit" value="Check" class="btn btn-secondary mt-3 text-center" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,146 @@
+﻿@{ Layout = null; }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BankingProjectMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BankingProjectMVC.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Accounts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountsDropdown">
+                        <a asp-controller="Home" asp-action="AddNewUser" class="dropdown-item" >Add Account</a>
+                        <a asp-controller="Home" asp-action="SearchUpdate" class="dropdown-item" >Search/Update Account</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="ViewAllAccounts"  >View All Accounts</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="transactionDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Transaction
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="transactionDropdown">
+                        <a asp-controller="Home" asp-action="CheckDeposit" class="dropdown-item" >Deposit</a>
+                        <a asp-controller="Home" asp-action="CheckWithdraw"  class="dropdown-item" >Withdraw</a>
+                        <a asp-controller="Home" asp-action="CheckTransfer" class="dropdown-item">Transfer</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        View
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountsDropdown">
+                        <a asp-controller="Home" asp-action="CheckStatement"class="dropdown-item" >Statement</a>
+                    </div>
+                </li>
+                @*<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Others
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountsDropdown">
+                        <a class="dropdown-item" asp-controller="Home" asp-action="Index" >Log Out</a>
+                    </div>
+                </li>*@
+            </ul>
+            <div class="navbar-collapse collaspse d-sm-inline-flex flex-sm-row-reverse">
+                <partial name="~/Views/Shared/_LoginPartial.cshtml"/>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h1 class="display-4 text-center">UJJWAL'S BANK OF NEPAL</h1>
+    </div>
+    <div class="container mt-4">
+        <p class="lead">
+            Welcome to UJJWAL BANKS OF NEPAL, an outstanding financial institution that has been a cornerstone of Nepal's banking
+            landscape since its establishment in 1991. With a relentless commitment to excellence and innovation, UJJWAL BANKS OF NEPAL has 
+            been instrumental in driving the nation's economic growth and social progress.
+        </p>
+        <p>
+            One of the bank's most remarkable contributions lies in the agricultural sector. With a deep understanding of Nepal's agrarian society, 
+            UJJWAL BANKS OF NEPAL has played a pivotal role in bolstering agricultural development. By providing tailored financial solutions, 
+            the bank has empowered farmers and agricultural entrepreneurs to modernize their practices, boost productivity, and 
+            elevate the country's food security.
+        </p>
+        <p>But that's not all. UJJWAL BANKS OF NEPAL is equally dedicated to fostering women's empowerment. Recognizing the crucial role women play 
+            in shaping society, the bank has been a staunch advocate of gender equality and financial inclusion. Through specialized programs and 
+            initiatives, UJJWAL BANKS OF NEPAL has empowered women to become financially 
+            independent and entrepreneurs, thus driving positive transformation in communities across Nepal</p>
+        <!-- Add more paragraphs here if needed -->
+    </div>
+    <!-- Your content goes here -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@model BankingProjectMVC.Models.adminLogin
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin Login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BankingProjectMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BankingProjectMVC.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <h4 class="text-center">Admin Login</h4>
+                <hr />
+                <form asp-action="Index" class="needs-validation" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="UserName" class="control-label">Username</label>
+                        <input asp-for="UserName" class="form-control" required />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                        <span class="text-danger">@Html.ValidationMessage("IncorrectUserName")</span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" required />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <span class="text-danger">@Html.ValidationMessage("IncorrectPassword")</span>
+                    </div>
+                    <div class="form-group mt-3 text-center">
+                        <input type="submit" value="Login" class="btn btn-secondary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+*@

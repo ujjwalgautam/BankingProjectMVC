@@ -1,0 +1,62 @@
+﻿@model BankingProjectMVC.Models.Transferr
+
+<h4>Transferr</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Transfer">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="AccountNo" class="control-label"></label>
+                <input asp-for="AccountNo" class="form-control" />
+                <span asp-validation-for="AccountNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TAmountt" class="control-label"></label>
+                <input asp-for="TAmountt" class="form-control" />
+                <span asp-validation-for="TAmountt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToTransfer" class="control-label"></label>
+                <input asp-for="ToTransfer" class="form-control" />
+                <span asp-validation-for="ToTransfer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ToName" class="control-label"></label>
+                <input asp-for="ToName" class="form-control" />
+                <span asp-validation-for="ToName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChequeNumber" class="control-label"></label>
+                <input asp-for="ChequeNumber" class="form-control" />
+                <span asp-validation-for="ChequeNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Depositor" class="control-label"></label>
+                <input asp-for="Depositor" class="form-control" />
+                <span asp-validation-for="Depositor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepositorPhoneNo" class="control-label"></label>
+                <input asp-for="DepositorPhoneNo" class="form-control" />
+                <span asp-validation-for="DepositorPhoneNo" class="text-danger"></span>
+                <span class="text-danger">@Html.ValidationMessage("InsufficientAmountt")</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Transfer" class="btn btn-secondary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

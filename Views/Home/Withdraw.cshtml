@@ -1,0 +1,54 @@
+﻿@model BankingProjectMVC.Models.Debit
+
+<h4>Debit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Withdraw">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="AccountNo" class="control-label" ></label>
+                <input asp-for="AccountNo" class="form-control" value="@Model.AccountNo" readonly/>
+                <span asp-validation-for="AccountNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control"value="@Model.Name" readonly />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChequeNo" class="control-label"></label>
+                <input asp-for="ChequeNo" class="form-control" />
+                <span asp-validation-for="ChequeNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Withdrawer" class="control-label"></label>
+                <input asp-for="Withdrawer" class="form-control" />
+                <span asp-validation-for="Withdrawer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WithdrawerPhoneNo" class="control-label"></label>
+                <input asp-for="WithdrawerPhoneNo" class="form-control" />
+                <span asp-validation-for="WithdrawerPhoneNo" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="DebAmount" class="control-label"></label>
+                <input asp-for="DebAmount" class="form-control" />
+                <span asp-validation-for="DebAmount" class="text-danger"></span>
+                <span class="text-danger">@Html.ValidationMessage("InsufficientAmount")</span>
+                <span class="text-danger">@Html.ValidationMessage("NotAllowedAmount")</span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Withdraw" class="btn btn-secondary mt-3 text-center" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
