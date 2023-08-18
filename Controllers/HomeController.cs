@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 
+
 namespace BankingProjectMVC.Controllers
 {
     [Authorize]
@@ -15,8 +16,10 @@ namespace BankingProjectMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+
         
-        
+
+
 
         public HomeController(ILogger<HomeController> logger,UserManager<ApplicationUser> userManager)
         {
@@ -72,7 +75,8 @@ namespace BankingProjectMVC.Controllers
             else
                 acc = 1000000 + 1;
             ViewBag.accountNum = acc;
-            return View();
+
+                return View();
         }
    
 
@@ -80,10 +84,15 @@ namespace BankingProjectMVC.Controllers
         public IActionResult AddNewUser(AccountDetails account)
         {
             using Context myContext = new Context();
+
+            account.Teller = _userManager.GetUserName(User);
+            
+
             myContext.AccountDetails.Add(new AccountDetails()
             {
                 AccountNo = account.AccountNo,
                 Name = account.Name,
+                Teller=account.Teller,
                 DOB = account.DOB,
                 PhoneNumber = account.PhoneNumber,
                 Address = account.Address,
@@ -96,6 +105,13 @@ namespace BankingProjectMVC.Controllers
                 FatherName = account.FatherName,
                 Balance = account.Balance,
                 Date = DateTime.Now,
+            });
+            myContext.ActivityLog.Add(new ActivityLog()
+            {
+                Teller= _userManager.GetUserName(User),
+                Date=DateTime.Now,
+                Activity="Create New Account",
+                Description=account.Id+" " + "-" + " " + account.Name+" "+"-"+" "+account.AccountNo
             });
             myContext.SaveChanges();
             return RedirectToAction("AddNewUser");
@@ -220,6 +236,13 @@ namespace BankingProjectMVC.Controllers
             a1.FatherName = account.FatherName;
             a1.Balance = account.Balance;
             a1.Date = account.Date;
+            myContext.ActivityLog.Add(new ActivityLog()
+            {
+                Teller = _userManager.GetUserName(User),
+                Date = DateTime.Now,
+                Activity = "Update Account",
+                Description = account.Id + " " + "-" + " " + account.Name + " " + "-" + " " + account.AccountNo
+            });
             myContext.SaveChanges();
             return RedirectToAction("SearchUpdate");
 
@@ -253,6 +276,7 @@ namespace BankingProjectMVC.Controllers
             a1.Balance = account.Balance;
             a1.Date = account.Date;
 
+
             return View(a1);
 
         }
@@ -277,6 +301,13 @@ namespace BankingProjectMVC.Controllers
             a1.FatherName = account.FatherName;
             a1.Balance = account.Balance;
             a1.Date = account.Date;
+            myContext.ActivityLog.Add(new ActivityLog()
+            {
+                Teller = _userManager.GetUserName(User),
+                Date = DateTime.Now,
+                Activity = "Update Account",
+                Description = account.Id + " " + "-" + " " + account.Name + " " + "-" + " " + account.AccountNo
+            });
             myContext.SaveChanges();
             return RedirectToAction("SearchUpdate");
 
@@ -340,13 +371,45 @@ namespace BankingProjectMVC.Controllers
                 DipAmount = data.DipAmount,
                 Depositor = data.Depositor,
                 DepositorPhoneNo = data.DepositorPhoneNo,
+                ReceivedAmount = data.ReceivedAmount,
+                cash=data.cash,
+                rCash=data.rCash,
             });
+            if (data.DipAmount>data.ReceivedAmount)
+            {
+                ModelState.AddModelError("InsufficientAmount", "The cash received is insufficient to deposit");
+                return View(data);
+            }
+            int total = data.cash.Thousands*1000 + data.cash.FiveHUndreds*500 + data.cash.Hundreds*100 + data.cash.Fifities*50 + 
+                data.cash.Twenties *20+ data.cash.Tens *10+ data.cash.Fives*5 + data.cash.Twos*2 + data.cash.Ones;
+            if (total != data.ReceivedAmount)
+            {
+                ModelState.AddModelError("InvalidReceived", "Cash Count does not match with Received Amount");
+                return View(data);
+            }
+            int Rtotal= data.rCash.FiveHUndreds*500 + data.rCash.Hundreds *100+ data.rCash.Fifities*50 +
+                data.rCash.Twenties*20 + data.rCash.Tens*10 + data.rCash.Fives *5+ data.rCash.Twos *2+ data.rCash.Ones;
+            int returns= data.ReceivedAmount - data.DipAmount;
+            if (returns != Rtotal)
+            {
+                ModelState.AddModelError("InvalidReturn", "Cash Count does not match with Amount to be returned");
+                return View(data);
+            }
 
             var account = myContext.AccountDetails.Where(c => c.AccountNo == data.AccountNo).FirstOrDefault();
             if (account != null)
             {
                 account.Balance += data.DipAmount;
             }
+            myContext.ActivityLog.Add(new ActivityLog()
+            {
+                Teller = _userManager.GetUserName(User),
+                Date = DateTime.Now,
+                Activity = "Deposit Balance",
+                Description = data.Sno + " " + "-" + " " + data.Name + " " + "-" + " " + data.AccountNo + " " + "-" + " " +data.Depositor+ " " + "-" + " " +"Rs."+data.DipAmount
+            });
+            myContext.SaveChanges();
+
             myContext.SaveChanges();
             return RedirectToAction("Menus");
         }
@@ -402,15 +465,24 @@ namespace BankingProjectMVC.Controllers
                 ChequeNo = data.ChequeNo,
                 Withdrawer = data.Withdrawer,
                 WithdrawerPhoneNo = data.WithdrawerPhoneNo,
+                cash=data.cash,
             });
+            if (data.DebAmount > 1000000)
+            {
+                ModelState.AddModelError("NotAllowedAmount", "You are not allowed to withdraw more tha 10 lakhs at a time");
+                return View(data);
+            }
             if (data.DebAmount > balance)
             {
                 ModelState.AddModelError("InsufficientAmount", "You do not have sufficient amount");
                 return View(data);
             }
-            if (data.DebAmount > 1000000)
+            
+            int total = data.cash.Thousands * 1000 + data.cash.FiveHUndreds * 500 + data.cash.Hundreds * 100 + data.cash.Fifities * 50 +
+                data.cash.Twenties * 20 + data.cash.Tens * 10 + data.cash.Fives * 5 + data.cash.Twos * 2 + data.cash.Ones;
+            if (total != data.DebAmount)
             {
-                ModelState.AddModelError("NotAllowedAmount", "You are not allowed to withdraw more tha 10 lakhs at a time");
+                ModelState.AddModelError("InvalidWithDraw", "Cash Count does not match with Amount to be withdrawn");
                 return View(data);
             }
             var account = myContext.AccountDetails.Where(c => c.AccountNo == data.AccountNo).FirstOrDefault();
@@ -418,6 +490,13 @@ namespace BankingProjectMVC.Controllers
             {
                 account.Balance -= data.DebAmount;
             }
+            myContext.ActivityLog.Add(new ActivityLog()
+            {
+                Teller = _userManager.GetUserName(User),
+                Date = DateTime.Now,
+                Activity = "Withdraw Cash",
+                Description = data.Sno + " " + "-" + " " + data.Name + " " + "-" + " " + data.AccountNo + " " + "-" + " " + data.Withdrawer + " " + "-" + " "+data.ChequeNo+ " " + "-" + " " + "Rs." + data.DebAmount
+            });
             myContext.SaveChanges();
             return RedirectToAction("Menus");
         }
@@ -509,6 +588,13 @@ namespace BankingProjectMVC.Controllers
             {
                 Toaccount.Balance += data.TAmountt;
             }
+            myContext.ActivityLog.Add(new ActivityLog()
+            {
+                Teller = _userManager.GetUserName(User),
+                Date = DateTime.Now,
+                Activity = "Transfer Balance",
+                Description = data.Sno + " " + "-" + " " + data.Name + " " + "-" + " " + data.AccountNo + " " + "-" + " " + data.ToName + " " + "-" + " " + data.ToTransfer + " " + "-" + " " + data.ChequeNumber + " " + "-" + " " + "Rs." + data.TAmountt
+            });
             myContext.SaveChanges();
             return RedirectToAction("Menus");
         }
@@ -548,11 +634,8 @@ namespace BankingProjectMVC.Controllers
                 foreach(Depositt d in deposits)
                 {
                     var s1 = new Statement();
-                    s1.SenderAccountNumber = d.AccountNo.ToString();
-                    s1.SenderName = "Self";
-                    s1.ReceiverAccountNumber = "Self";
-                    s1.ReceiverName = "Self";
-                    s1.Amount = d.DipAmount;
+                    s1.Description = "Cash - " + d.Depositor+" - PhNo : "+d.DepositorPhoneNo;
+                    s1.DepositAmount = d.DipAmount;
                     s1.Mode = "Deposit";
                     s1.Status = true;
                     s1.Date = d.Date;
@@ -566,11 +649,8 @@ namespace BankingProjectMVC.Controllers
                 foreach (Debit d in withdraw)
                 {
                     var s1 = new Statement();
-                    s1.SenderAccountNumber = d.AccountNo.ToString();
-                    s1.SenderName = "Self";
-                    s1.ReceiverAccountNumber = "Self";
-                    s1.ReceiverName = "Self";
-                    s1.Amount = d.DebAmount;
+                    s1.Description = "Cheque No : " + d.ChequeNo + " - " + d.Withdrawer + " - PhNo : " + d.WithdrawerPhoneNo;
+                    s1.WithdrawAmount = d.DebAmount;
                     s1.Mode = "Withdraw";
                     s1.Status = false;
                     s1.Date = d.Date;
@@ -583,11 +663,8 @@ namespace BankingProjectMVC.Controllers
                 foreach (Transferr d in send)
                 {
                     var s1 = new Statement();
-                    s1.SenderAccountNumber = d.AccountNo.ToString();
-                    s1.SenderName = d.Name;
-                    s1.ReceiverAccountNumber = d.ToTransfer.ToString();
-                    s1.ReceiverName = d.ToName;
-                    s1.Amount = d.TAmountt;
+                    s1.Description = "Cheque No : " + d.ChequeNumber + " - " + d.Depositor + " - PhNo : " + d.DepositorPhoneNo;
+                    s1.WithdrawAmount = d.TAmountt;
                     s1.Mode = "Sent";
                     s1.Status = false;
                     s1.Date = d.Date;
@@ -600,12 +677,9 @@ namespace BankingProjectMVC.Controllers
                 foreach (Transferr d in receive)
                 {
                     var s1 = new Statement();
-                    s1.SenderAccountNumber =  d.AccountNo.ToString();
-                    s1.SenderName = d.Name;
-                    s1.ReceiverAccountNumber = d.ToTransfer.ToString();
-                    s1.ReceiverName = d.ToName;
-                    s1.Amount = d.TAmountt;
+                    s1.Description = "Cheque No : " + d.ChequeNumber + " - " + d.Depositor + " - PhNo : " + d.DepositorPhoneNo;
                     s1.Mode = "Received";
+                    s1.DepositAmount = d.TAmountt;
                     s1.Status = true;
                     s1.Date = d.Date;
                     statement.Add(s1);
@@ -615,7 +689,21 @@ namespace BankingProjectMVC.Controllers
             var orderedStatement = statement.OrderByDescending(s => s.Date).ToList();
             return View(orderedStatement);
         }
-     
+       
+        public IActionResult ActivityLog()
+        {
+            Context myContext = new();
+            var data=myContext.ActivityLog.ToList();
+            return View(data);
+        }
+        public IActionResult PersonalLog()
+        {
+            Context myContext = new();
+            var data = myContext.ActivityLog.ToList();
+            return View(data);
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

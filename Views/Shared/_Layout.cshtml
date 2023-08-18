@@ -41,14 +41,16 @@
                         <a asp-controller="Home" asp-action="CheckStatement"class="dropdown-item" >Statement</a>
                     </div>
                 </li>
-                @*<li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="accountsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Others
+                        Log
                     </a>
                     <div class="dropdown-menu" aria-labelledby="accountsDropdown">
-                        <a class="dropdown-item" asp-controller="Home" asp-action="Index" >Log Out</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="ActivityLog" >Activity Log</a>
+                        <a class="dropdown-item" asp-controller="Home" asp-action="PersonalLog">Personal Log</a>
                     </div>
-                </li>*@
+                    
+                </li>
             </ul>
             <div class="navbar-collapse collaspse d-sm-inline-flex flex-sm-row-reverse">
                 <partial name="_LoginPartial.cshtml"/>

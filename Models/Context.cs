@@ -17,6 +17,8 @@ namespace BankingProjectMVC.Models
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Transferr> Transfer { get; set; }
         public DbSet<UserTable> UserTable { get; set; }
+        public DbSet<BankDeposit> BankDeposit { get; set; }
+        public DbSet<ActivityLog> ActivityLog { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=UJJWAL\SQLEXPRESS;Initial Catalog=BankingProjectMVC;Integrated Security=true;trustServerCertificate=True;");

@@ -17,6 +17,8 @@ namespace BankingProjectMVC.Models
         [DefaultValue(1000000)]
         public int AccountNo { get; set; }
         public string Name { get; set; }
+        public string Teller { get; set; }
+        //public string Activity { get; set; }
         public DateTime DOB { get; set; }
         [RegularExpression(@"^9\d{9}$", ErrorMessage = "The phone number must be a 10-digit number starting with '9'.")]
 

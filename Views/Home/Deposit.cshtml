@@ -2,45 +2,414 @@
 
 <h4>Depositt</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
+    <div class="col-md-12">
         <form asp-action="Deposit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row">
+                <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
-            <div class="form-group">
-                <label asp-for="AccountNo" class="control-label" ></label>
-                <input asp-for="AccountNo" class="form-control" value="@Model.AccountNo" readonly/>
-                <span asp-validation-for="AccountNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control"value="@Model.Name" readonly/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Depositor" class="control-label"></label>
-                <input asp-for="Depositor" class="form-control" />
-                <span asp-validation-for="Depositor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DepositorPhoneNo" class="control-label"></label>
-                <input asp-for="DepositorPhoneNo" class="form-control" />
-                <span asp-validation-for="DepositorPhoneNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DipAmount" class="control-label"></label>
-                <input asp-for="DipAmount" class="form-control" />
-                <span asp-validation-for="DipAmount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Deposit" class="btn btn-secondary mt-3 text-center" />
+                <div class="form-group">
+                    <label asp-for="AccountNo" class="control-label" ></label>
+                    <input asp-for="AccountNo" class="form-control" value="@Model.AccountNo" readonly/>
+                    <span asp-validation-for="AccountNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control"value="@Model.Name" readonly/>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Depositor" class="control-label"></label>
+                    <input asp-for="Depositor" class="form-control" />
+                    <span asp-validation-for="Depositor" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DepositorPhoneNo" class="control-label"></label>
+                    <input asp-for="DepositorPhoneNo" class="form-control" />
+                    <span asp-validation-for="DepositorPhoneNo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DipAmount" class="control-label"></label>
+                    <input asp-for="DipAmount" class="form-control" />
+                    <span asp-validation-for="DipAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ReceivedAmount" class="control-label"></label>
+                    <input asp-for="ReceivedAmount" class="form-control" />
+                    <span asp-validation-for="ReceivedAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Deposit" class="btn btn-secondary mt-3 text-center" />
+                </div>
+                <span class="text-danger">@Html.ValidationMessage("InsufficientAmount")</span>
+                <span class="text-danger">@Html.ValidationMessage("InvalidReceived")</span>
+                <span class="text-danger">@Html.ValidationMessage("InvalidReturn")</span>
+                </div>
+                <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+                <div class="form-group">
+                    <label asp-for="cash.Thousands" class="control-label"></label>
+                    <input asp-for="cash.Thousands" class="form-control" />
+                    <span asp-validation-for="cash.Thousands" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.FiveHUndreds" class="control-label"></label>
+                    <input asp-for="cash.FiveHUndreds" class="form-control" />
+                    <span asp-validation-for="cash.FiveHUndreds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Hundreds" class="control-label"></label>
+                    <input asp-for="cash.Hundreds" class="form-control" />
+                    <span asp-validation-for="cash.Hundreds" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label asp-for="cash.Fifities" class="control-label"></label>
+                    <input asp-for="cash.Fifities" class="form-control" />
+                    <span asp-validation-for="cash.Fifities" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Twenties" class="control-label"></label>
+                    <input asp-for="cash.Twenties" class="form-control" />
+                    <span asp-validation-for="cash.Twenties" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Tens" class="control-label"></label>
+                    <input asp-for="cash.Tens" class="form-control" />
+                    <span asp-validation-for="cash.Tens" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Fives" class="control-label"></label>
+                    <input asp-for="cash.Fives" class="form-control" />
+                    <span asp-validation-for="cash.Fives" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Twos" class="control-label"></label>
+                    <input asp-for="cash.Twos" class="form-control" />
+                    <span asp-validation-for="cash.Twos" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Ones" class="control-label"></label>
+                    <input asp-for="cash.Ones" class="form-control" />
+                    <span asp-validation-for="cash.Ones" class="text-danger"></span>
+                </div>
+            
+                </div>
+                <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            
+                <div class="form-group">
+                    <label asp-for="rCash.FiveHUndreds" class="control-label"></label>
+                    <input asp-for="rCash.FiveHUndreds" class="form-control" />
+                    <span asp-validation-for="rCash.FiveHUndreds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rCash.Hundreds" class="control-label"></label>
+                    <input asp-for="rCash.Hundreds" class="form-control" />
+                    <span asp-validation-for="rCash.Hundreds" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label asp-for="rCash.Fifities" class="control-label"></label>
+                    <input asp-for="rCash.Fifities" class="form-control" />
+                    <span asp-validation-for="rCash.Fifities" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rCash.Twenties" class="control-label"></label>
+                    <input asp-for="rCash.Twenties" class="form-control" />
+                    <span asp-validation-for="rCash.Twenties" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rCash.Tens" class="control-label"></label>
+                    <input asp-for="rCash.Tens" class="form-control" />
+                    <span asp-validation-for="rCash.Tens" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rCash.Fives" class="control-label"></label>
+                    <input asp-for="rCash.Fives" class="form-control" />
+                    <span asp-validation-for="rCash.Fives" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rCash.Twos" class="control-label"></label>
+                    <input asp-for="rCash.Twos" class="form-control" />
+                    <span asp-validation-for="rCash.Twos" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="rCash.Ones" class="control-label"></label>
+                    <input asp-for="rCash.Ones" class="form-control" />
+                    <span asp-validation-for="rCash.Ones" class="text-danger"></span>
+                </div>
+            
+                </div>
             </div>
         </form>
     </div>
-</div>
+
 
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const totalAmountInput = document.getElementById('DipAmount');
+    const totalAmountReceived = document.getElementById('ReceivedAmount');
+    const thousandsInput = document.getElementById('cash_Thousands');
+    const fiveHundredsInput = document.getElementById('cash_FiveHUndreds');
+    const hundredsInput = document.getElementById('cash_Hundreds');
+    const fifitiesInput = document.getElementById('cash_Fifities');
+    const twentiesInput = document.getElementById('cash_Twenties');
+    const tensInput = document.getElementById('cash_Tens');
+    const fivesInput = document.getElementById('cash_Fives');
+    const twosInput = document.getElementById('cash_Twos');
+    const onesInput = document.getElementById('cash_Ones');
+    const RfiveHundredsInput = document.getElementById('rCash_FiveHUndreds');
+    const RhundredsInput = document.getElementById('rCash_Hundreds');
+    const RfifitiesInput = document.getElementById('rCash_Fifities');
+    const RtwentiesInput = document.getElementById('rCash_Twenties');
+    const RtensInput = document.getElementById('rCash_Tens');
+    const RfivesInput = document.getElementById('rCash_Fives');
+    const RtwosInput = document.getElementById('rCash_Twos');
+    const RonesInput = document.getElementById('rCash_Ones');
+
+    totalAmountInput.addEventListener('input', function () {
+        const totalAmountValue = parseInt(totalAmountInput.value);
+        const totalAmountReceivedValue = parseInt(totalAmountReceived.value);
+        thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+
+        if (!isNaN(totalAmountValue)) {
+            //const thousand = Math.floor(totalAmountReceivedValue / 1000);
+            //let remainder = totalAmountValue % 1000;
+
+            //const fiveHundred = Math.floor(remainder / 500);
+            //remainder = remainder % 500;
+
+            //const hundred = Math.floor(remainder / 100);
+            //remainder = remainder % 100;
+
+            //const fifty = Math.floor(remainder / 50);
+            //remainder = remainder % 50;
+
+            //const twenty = Math.floor(remainder / 20);
+            //remainder = remainder % 20;
+
+            //const ten = Math.floor(remainder / 10);
+            //remainder = remainder % 10;
+
+            //const five = Math.floor(remainder / 5);
+            //remainder = remainder % 5;
+
+            //const two = Math.floor(remainder / 2);
+            //remainder = remainder % 2;
+
+            //const one = remainder;
+
+            const returnAmount = totalAmountReceivedValue - totalAmountValue;
+            let Rremainder = returnAmount; // Initialize Rremainder
+
+            const RfiveHundred = Math.floor(Rremainder / 500);
+            Rremainder = Rremainder % 500;
+
+            const Rhundred = Math.floor(Rremainder / 100);
+            Rremainder = Rremainder % 100;
+
+            const Rfifty = Math.floor(Rremainder / 50);
+            Rremainder = Rremainder % 50;
+
+            const Rtwenty = Math.floor(Rremainder / 20);
+            Rremainder = Rremainder % 20;
+
+            const Rten = Math.floor(Rremainder / 10);
+            Rremainder = Rremainder % 10;
+
+            const Rfive = Math.floor(Rremainder / 5);
+            Rremainder = Rremainder % 5;
+
+            const Rtwo = Math.floor(Rremainder / 2);
+            Rremainder = Rremainder % 2;
+
+            const Rone = Rremainder;
+
+            // Set the input values
+            //thousandsInput.value = thousand;
+            //hundredsInput.value = hundred;
+            //fiveHundredsInput.value = fiveHundred;
+            //fifitiesInput.value = fifty;
+            //twentiesInput.value = twenty;
+            //tensInput.value = ten;
+            //fivesInput.value = five;
+            //twosInput.value = two;
+            //onesInput.value = one;
+
+           thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+
+            RhundredsInput.value = Rhundred;
+            RfiveHundredsInput.value = RfiveHundred;
+            RfifitiesInput.value = Rfifty;
+            RtwentiesInput.value = Rtwenty;
+            RtensInput.value = Rten;
+            RfivesInput.value = Rfive;
+            RtwosInput.value = Rtwo;
+            RonesInput.value = Rone;
+        } else {
+            // Reset values if input is not a valid number
+            thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+            RhundredsInput.value = '';
+            RfiveHundredsInput.value = '';
+            RfifitiesInput.value = '';
+            RtwentiesInput.value = '';
+            RtensInput.value = '';
+            RfivesInput.value = '';
+            RtwosInput.value = '';
+            RonesInput.value = '';
+        }
+    });
+    totalAmountReceived.addEventListener('input', function () {
+        const totalAmountValue = parseInt(totalAmountInput.value);
+        const totalAmountReceivedValue = parseInt(totalAmountReceived.value);
+        thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+
+        if (!isNaN(totalAmountValue)) {
+            //const thousand = Math.floor(totalAmountReceivedValue / 1000);
+            //let remainder = totalAmountValue % 1000;
+
+            //const fiveHundred = Math.floor(remainder / 500);
+            //remainder = remainder % 500;
+
+            //const hundred = Math.floor(remainder / 100);
+            //remainder = remainder % 100;
+
+            //const fifty = Math.floor(remainder / 50);
+            //remainder = remainder % 50;
+
+            //const twenty = Math.floor(remainder / 20);
+            //remainder = remainder % 20;
+
+            //const ten = Math.floor(remainder / 10);
+            //remainder = remainder % 10;
+
+            //const five = Math.floor(remainder / 5);
+            //remainder = remainder % 5;
+
+            //const two = Math.floor(remainder / 2);
+            //remainder = remainder % 2;
+
+            //const one = remainder;
+
+            const returnAmount = totalAmountReceivedValue - totalAmountValue;
+            let Rremainder = returnAmount; // Initialize Rremainder
+
+            const RfiveHundred = Math.floor(Rremainder / 500);
+            Rremainder = Rremainder % 500;
+
+            const Rhundred = Math.floor(Rremainder / 100);
+            Rremainder = Rremainder % 100;
+
+            const Rfifty = Math.floor(Rremainder / 50);
+            Rremainder = Rremainder % 50;
+
+            const Rtwenty = Math.floor(Rremainder / 20);
+            Rremainder = Rremainder % 20;
+
+            const Rten = Math.floor(Rremainder / 10);
+            Rremainder = Rremainder % 10;
+
+            const Rfive = Math.floor(Rremainder / 5);
+            Rremainder = Rremainder % 5;
+
+            const Rtwo = Math.floor(Rremainder / 2);
+            Rremainder = Rremainder % 2;
+
+            const Rone = Rremainder;
+
+            // Set the input values
+            //thousandsInput.value = thousand;
+            //hundredsInput.value = hundred;
+            //fiveHundredsInput.value = fiveHundred;
+            //fifitiesInput.value = fifty;
+            //twentiesInput.value = twenty;
+            //tensInput.value = ten;
+            //fivesInput.value = five;
+            //twosInput.value = two;
+            //onesInput.value = one;
+
+
+            thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+
+            RhundredsInput.value = Rhundred;
+            RfiveHundredsInput.value = RfiveHundred;
+            RfifitiesInput.value = Rfifty;
+            RtwentiesInput.value = Rtwenty;
+            RtensInput.value = Rten;
+            RfivesInput.value = Rfive;
+            RtwosInput.value = Rtwo;
+            RonesInput.value = Rone;
+        } else {
+            // Reset values if input is not a valid number
+            thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+            RhundredsInput.value = '';
+            RfiveHundredsInput.value = '';
+            RfifitiesInput.value = '';
+            RtwentiesInput.value = '';
+            RtensInput.value = '';
+            RfivesInput.value = '';
+            RtwosInput.value = '';
+            RonesInput.value = '';
+        }
+    });
+});
+
+</script>
+
 }

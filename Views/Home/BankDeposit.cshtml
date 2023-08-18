@@ -1,0 +1,142 @@
+﻿@model BankingProjectMVC.Models.BankDeposit
+
+<h4>BankDeposit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="BankDeposit">
+            <div class="col-md-12">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TotalAmount" class="control-label"></label>
+                <input asp-for="TotalAmount" class="form-control" />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Thousands" class="control-label"></label>
+                <input asp-for="Thousands" class="form-control" />
+                <span asp-validation-for="Thousands" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FiveHUndreds" class="control-label"></label>
+                <input asp-for="FiveHUndreds" class="form-control" />
+                <span asp-validation-for="FiveHUndreds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hundreds" class="control-label"></label>
+                <input asp-for="Hundreds" class="form-control" />
+                <span asp-validation-for="Hundreds" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Fifities" class="control-label"></label>
+                <input asp-for="Fifities" class="form-control" />
+                <span asp-validation-for="Fifities" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Twenties" class="control-label"></label>
+                <input asp-for="Twenties" class="form-control" />
+                <span asp-validation-for="Twenties" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tens" class="control-label"></label>
+                <input asp-for="Tens" class="form-control" />
+                <span asp-validation-for="Tens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fives" class="control-label"></label>
+                <input asp-for="Fives" class="form-control" />
+                <span asp-validation-for="Fives" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Twos" class="control-label"></label>
+                <input asp-for="Twos" class="form-control" />
+                <span asp-validation-for="Twos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ones" class="control-label"></label>
+                <input asp-for="Ones" class="form-control" />
+                <span asp-validation-for="Ones" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    const totalAmountInput = document.getElementById('TotalAmount');
+    const thousandsInput = document.getElementById('Thousands');
+    
+    const fiveHundredsInput = document.getElementById('FiveHUndreds');
+    const hundredsInput = document.getElementById('Hundreds');
+    const fifitiesInput = document.getElementById('Fifities');
+    const twentiesInput = document.getElementById('Twenties');
+    const tensInput = document.getElementById('Tens');
+    const fivesInput = document.getElementById('Fives');
+    const twosInput = document.getElementById('Twos');
+    const onesInput = document.getElementById('Ones');
+
+    totalAmountInput.addEventListener('input', function () {
+        const totalAmountValue = parseInt(totalAmountInput.value);
+
+        if (!isNaN(totalAmountValue)) {
+            const thousand = Math.floor(totalAmountValue / 1000); 
+            let remainder = totalAmountValue % 1000; 
+            
+            const fiveHundred = Math.floor(remainder / 500); 
+            remainder = remainder % 500;
+
+            const hundred = Math.floor(remainder / 100); 
+            remainder = remainder % 100; 
+            
+            const fifty = Math.floor(remainder / 50); 
+            remainder = remainder % 50; 
+            
+            const twenty = Math.floor(remainder / 20); 
+            remainder = remainder % 20; 
+            
+            const ten = Math.floor(remainder / 10); 
+            remainder = remainder % 10; 
+            
+            const five = Math.floor(remainder / 5); 
+            remainder = remainder % 5; 
+            
+            const two = Math.floor(remainder / 2); 
+            remainder = remainder % 2; 
+            
+            const one = remainder; 
+
+            thousandsInput.value = thousand;
+            hundredsInput.value = hundred;
+            fiveHundredsInput.value = fiveHundred;
+            fifitiesInput.value = fifty;
+            twentiesInput.value = twenty;
+            tensInput.value = ten;
+            fivesInput.value = five;
+            twosInput.value = two;
+            onesInput.value = one;
+        } else {
+            thousandsInput.value = '';
+            hundredsInput.value = '';
+            fiveHundredsInput.value = '';
+            fifitiesInput.value = '';
+            twentiesInput.value = '';
+            tensInput.value = '';
+            fivesInput.value = '';
+            twosInput.value = '';
+            onesInput.value = '';
+        }
+    });
+</script>
+
+
+}

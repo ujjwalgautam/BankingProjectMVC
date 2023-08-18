@@ -9,23 +9,18 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SenderAccountNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SenderName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReceiverAccountNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReceiverName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Amount)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Mode)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WithdrawAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DepositAmount)
+            </th>
+            
             
             <th>
                 @Html.DisplayNameFor(model => model.Date)
@@ -37,28 +32,23 @@
 @foreach (var item in Model) {
         <tr style="color: @(item.Status ? "green" : "red")">
             <td>
-                @Html.DisplayFor(modelItem => item.SenderAccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SenderName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceiverAccountNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceiverName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Mode)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WithdrawAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepositAmount)
+            </td>
+            
             
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
-          
+            
         </tr>
 }
     </tbody>

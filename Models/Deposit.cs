@@ -18,5 +18,8 @@ namespace BankingProjectMVC.Models
         [RegularExpression(@"^9\d{9}$", ErrorMessage = "Phone number should start with '9' and be exactly 10 digits.")]
         public string DepositorPhoneNo { get; set; }
         public int DipAmount { get; set; }
+        public int ReceivedAmount { get; set; } 
+        public CashCount cash { get; set;}
+        public ReturnCashCount rCash { get; set; }
     }
 }

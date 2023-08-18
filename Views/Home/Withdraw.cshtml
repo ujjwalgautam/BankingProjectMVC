@@ -2,9 +2,11 @@
 
 <h4>Debit</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
+    <div class="col-md-12">
         <form asp-action="Withdraw">
+            <div class="row">
+            <div class="col-md-4">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
@@ -39,16 +41,147 @@
                 <span asp-validation-for="DebAmount" class="text-danger"></span>
                 <span class="text-danger">@Html.ValidationMessage("InsufficientAmount")</span>
                 <span class="text-danger">@Html.ValidationMessage("NotAllowedAmount")</span>
+                <span class="text-danger">@Html.ValidationMessage("InvalidWithDraw")</span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Withdraw" class="btn btn-secondary mt-3 text-center" />
             </div>
+            
+            </div>
+            <div class="col-md-4">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+                <div class="form-group">
+                    <label asp-for="cash.Thousands" class="control-label"></label>
+                    <input asp-for="cash.Thousands" class="form-control" />
+                    <span asp-validation-for="cash.Thousands" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.FiveHUndreds" class="control-label"></label>
+                    <input asp-for="cash.FiveHUndreds" class="form-control" />
+                    <span asp-validation-for="cash.FiveHUndreds" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Hundreds" class="control-label"></label>
+                    <input asp-for="cash.Hundreds" class="form-control" />
+                    <span asp-validation-for="cash.Hundreds" class="text-danger"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label asp-for="cash.Fifities" class="control-label"></label>
+                    <input asp-for="cash.Fifities" class="form-control" />
+                    <span asp-validation-for="cash.Fifities" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Twenties" class="control-label"></label>
+                    <input asp-for="cash.Twenties" class="form-control" />
+                    <span asp-validation-for="cash.Twenties" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Tens" class="control-label"></label>
+                    <input asp-for="cash.Tens" class="form-control" />
+                    <span asp-validation-for="cash.Tens" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Fives" class="control-label"></label>
+                    <input asp-for="cash.Fives" class="form-control" />
+                    <span asp-validation-for="cash.Fives" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Twos" class="control-label"></label>
+                    <input asp-for="cash.Twos" class="form-control" />
+                    <span asp-validation-for="cash.Twos" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="cash.Ones" class="control-label"></label>
+                    <input asp-for="cash.Ones" class="form-control" />
+                    <span asp-validation-for="cash.Ones" class="text-danger"></span>
+                </div>
+            
+                </div>
+            </div>
         </form>
     </div>
-</div>
+
 
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const totalAmountInput = document.getElementById('DebAmount');
+    const thousandsInput = document.getElementById('cash_Thousands');
+    const fiveHundredsInput = document.getElementById('cash_FiveHUndreds');
+    const hundredsInput = document.getElementById('cash_Hundreds');
+    const fifitiesInput = document.getElementById('cash_Fifities');
+    const twentiesInput = document.getElementById('cash_Twenties');
+    const tensInput = document.getElementById('cash_Tens');
+    const fivesInput = document.getElementById('cash_Fives');
+    const twosInput = document.getElementById('cash_Twos');
+    const onesInput = document.getElementById('cash_Ones');
+    
+
+    totalAmountInput.addEventListener('input', function () {
+        const totalAmountValue = parseInt(totalAmountInput.value);
+        
+           
+
+        if (!isNaN(totalAmountValue)) {
+            const thousand = Math.floor(totalAmountValue / 1000);
+            let remainder = totalAmountValue % 1000;
+
+            const fiveHundred = Math.floor(remainder / 500);
+            remainder = remainder % 500;
+
+            const hundred = Math.floor(remainder / 100);
+            remainder = remainder % 100;
+
+            const fifty = Math.floor(remainder / 50);
+            remainder = remainder % 50;
+
+            const twenty = Math.floor(remainder / 20);
+            remainder = remainder % 20;
+
+            const ten = Math.floor(remainder / 10);
+            remainder = remainder % 10;
+
+            const five = Math.floor(remainder / 5);
+            remainder = remainder % 5;
+
+            const two = Math.floor(remainder / 2);
+            remainder = remainder % 2;
+
+            const one = remainder;
+
+            
+
+             
+            thousandsInput.value = thousand;
+            hundredsInput.value = hundred;
+            fiveHundredsInput.value = fiveHundred;
+            fifitiesInput.value = fifty;
+            twentiesInput.value = twenty;
+            tensInput.value = ten;
+            fivesInput.value = five;
+            twosInput.value = two;
+            onesInput.value = one;
+
+           
+        } else {
+            // Reset values if input is not a valid number
+            thousandsInput.value =0;
+            hundredsInput.value = 0;
+            fiveHundredsInput.value = 0;
+            fifitiesInput.value = 0;
+            twentiesInput.value = 0;
+            tensInput.value = 0;
+            fivesInput.value = 0;
+            twosInput.value = 0;
+            onesInput.value = 0;
+        }
+    });
+});
+
+</script>
 }
