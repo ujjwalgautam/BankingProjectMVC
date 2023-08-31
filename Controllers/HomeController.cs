@@ -699,7 +699,7 @@ namespace BankingProjectMVC.Controllers
         public IActionResult PersonalLog()
         {
             Context myContext = new();
-            var data = myContext.ActivityLog.ToList();
+            var data = myContext.ActivityLog.Where(c=>c.Teller== _userManager.GetUserName(User)).ToList();
             return View(data);
         }
 
